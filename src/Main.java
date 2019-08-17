@@ -17,13 +17,10 @@ public class Main {
 
     public static void main(String[] args) {
         List<SimpleRepo> ramdaRepos = getRepos(RAMDA);
-        List<String> repoNames = new ArrayList<>();
-        for (SimpleRepo repo : ramdaRepos) {
-            repoNames.add(repo.getName());
-        }
         Multimap<String, PullRequest> pullRequestsByRepo = MultimapBuilder.hashKeys().arrayListValues().build();
         int totalPullRequests = 0;
-        for (String repoName : repoNames) {
+        for (SimpleRepo repo : ramdaRepos) {
+            String repoName = repo.getName();
             List<PullRequest> pullRequests = getPullRequests(RAMDA, repoName);
             pullRequestsByRepo.putAll(repoName, pullRequests);
             System.out.println("Repo: " + repoName + ", Pull requests: " + pullRequests.size());
